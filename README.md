@@ -81,26 +81,19 @@ Provides monthly climate summaries including:
 - Precipitation
 - Surface pressure
 - Cloud cover
-
----
-
-## Google Earth Engine
-
-Satellite-derived environmental products including:
-
-- Normalized Difference Vegetation Index (NDVI)
-- Land Surface Temperature (LST)
-
----
-
-## Wind Data
-
-Monthly averaged atmospheric measurements including:
-
 - Wind speed
 - Wind direction
 
-These variables are used to estimate potential wind-assisted locust migration between districts.
+---
+
+## NASA AppEEARS
+
+NASA's Application for Extracting and Exploring Analysis Ready Samples (AppEEARS) was used to obtain remotely sensed environmental variables from MODIS products, including:
+
+- Normalized Difference Vegetation Index (NDVI) - measured at 1Km, 16 days granuality - MOD13A2.061
+- Land Surface Temperature (LST) - measured at one day, 1 km granuality - MOD11A1.061
+
+Monthly district-level summary statistics (mean, median, minimum, maximum, and standard deviation) were derived from these products.
 
 ---
 
@@ -431,6 +424,6 @@ This repository is intended for academic and research purposes.
 Users should comply with the licenses and usage terms of the original data providers, including:
 
 - [FAO Desert Locust Information Service (Locust Watch)](https://www.fao.org/locust-watch/information/bulletin/en)
+- [NASA AppEEARS](https://appeears.earthdatacloud.nasa.gov/)
 - [Open-Meteo](https://open-meteo.com/)
-- [Google Earth Engine](https://earthengine.google.com/)
 ```
