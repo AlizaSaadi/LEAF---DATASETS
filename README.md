@@ -430,7 +430,7 @@ This repository is intended for academic and research purposes.
 
 Users should comply with the licenses and usage terms of the original data providers, including:
 
-- FAO Desert Locust Information Service
-- Open-Meteo
-- Google Earth Engine
+- [FAO Desert Locust Information Service (Locust Watch)](https://www.fao.org/locust-watch/information/bulletin/en)
+- [Open-Meteo](https://open-meteo.com/)
+- [Google Earth Engine](https://earthengine.google.com/)
 ```
