@@ -1,4 +1,4 @@
-# LEAF: Locust Environmental Analysis Framework Datasets
+# LEAF: Locust Early Alert Framework Datasets
 
 This repository contains two curated datasets developed for **desert locust outbreak forecasting in Pakistan**. Although both datasets model the same phenomenon, they are designed for different machine learning paradigms and can be used independently or together for ecological and spatiotemporal prediction tasks.
 
@@ -424,12 +424,6 @@ These files include:
 - Data types
 - Descriptions
 - Intended interpretation
-
----
-
-# Citation
-
-If you use these datasets in academic work, please cite the accompanying publication describing the preprocessing methodology and predictive framework.
 
 ---
 
