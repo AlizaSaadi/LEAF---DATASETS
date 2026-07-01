@@ -1,30 +1,29 @@
-# Spatiotemporal Locust Prediction Datasets for Pakistan
+# LEAF: Locust Environmental Analysis Framework Datasets
 
-This repository contains two curated datasets developed for desert locust outbreak forecasting in Pakistan. Although both datasets model the same phenomenon, they are designed for different machine learning paradigms:
+This repository contains two curated datasets developed for **desert locust outbreak forecasting in Pakistan**. Although both datasets model the same phenomenon, they are designed for different machine learning paradigms and can be used independently or together for ecological and spatiotemporal prediction tasks.
 
-- **Ecological Dataset** — a district-level tabular dataset for traditional machine learning models (e.g., XGBoost).
-- **Network Dataset** — a source-target spatiotemporal graph dataset designed for sequence models such as LSTMs and graph-based forecasting.
-
-Both datasets were generated from multiple environmental, climatic, remote sensing, FAO survey, and wind datasets through reproducible preprocessing pipelines.
+The datasets integrate climatic, environmental, remote sensing, wind, and FAO survey information to support research in locust monitoring, ecological forecasting, and spatial machine learning.
 
 ---
 
 # Repository Structure
 
 ```text
-├── data/
-│   ├── clean_data.csv
-│   ├── final_lstm_ready_data.csv
-│   ├── clean_data_dictionary.csv
-│   └── final_lstm_dictionary.csv
-│
-├── preprocessing/
-│   ├── ecological_dataset_builder.py
-│   ├── network_dataset_builder.py
-│   └── xgboost_training_pipeline.py
-│
+.
+├── LEAF_LSTM_DATASET.csv
+├── LEAF_XGBOOST_DATASET.csv
+├── LSTM_DATA_DICTIONARY.csv
+├── XGBOOST_DATA_DICTIONARY.csv
 └── README.md
 ```
+
+| File | Description |
+|------|-------------|
+| **LEAF_XGBOOST_DATASET.csv** | District-level ecological dataset used for traditional machine learning models such as XGBoost. |
+| **LEAF_LSTM_DATASET.csv** | Source-target spatiotemporal network dataset designed for sequential deep learning models such as LSTMs. |
+| **XGBOOST_DATA_DICTIONARY.csv** | Feature descriptions and metadata for the ecological dataset. |
+| **LSTM_DATA_DICTIONARY.csv** | Feature descriptions and metadata for the network dataset. |
+| **README.md** | Documentation describing dataset construction, preprocessing methodology, and intended applications. |
 
 ---
 
@@ -32,16 +31,16 @@ Both datasets were generated from multiple environmental, climatic, remote sensi
 
 | Dataset | Purpose |
 |----------|----------|
-| **clean_data.csv** | District-level ecological dataset for conventional machine learning |
-| **final_lstm_ready_data.csv** | Network-based spatiotemporal dataset for sequence learning |
+| **LEAF_XGBOOST_DATASET.csv** | District-level ecological dataset for traditional machine learning |
+| **LEAF_LSTM_DATASET.csv** | Network-based spatiotemporal dataset for sequential deep learning |
 
 ---
 
 # Comparative Summary
 
-| Property | Network Dataset (LSTM) | Ecological Dataset (Baseline) |
+| Property | Network Dataset (LSTM) | Ecological Dataset (XGBoost) |
 |-----------|------------------------|-------------------------------|
-| Learning Paradigm | Sequential / Graph | Traditional Machine Learning |
+| Learning Paradigm | Sequential / Network Learning | Traditional Machine Learning |
 | Samples | 9,658 | 9,189 |
 | Columns | 20 | 22 |
 | Predictive Features | 15 | 18 |
@@ -51,17 +50,17 @@ Both datasets were generated from multiple environmental, climatic, remote sensi
 | Temporal Resolution | Monthly | Monthly |
 | Missing Values | 0.0445% | 0.0613% |
 | Positive Class | 45.08% | 9.18% |
-| Primary Signals | Soil Moisture, Wind, Network Structure, Locust Dynamics | Vegetation, Climate, Atmosphere, Land Type |
+| Primary Signals | Soil Moisture, Wind, Network Dynamics, Locust Activity | Vegetation, Climate, Atmospheric Conditions, Land Type |
 
 ---
 
 # Data Sources
 
-The datasets integrate information from multiple publicly available sources.
+The datasets integrate information from multiple publicly available environmental and locust monitoring sources.
 
 ## FAO Desert Locust Information Service
 
-Provides:
+Provides monthly locust monitoring information, including:
 
 - Locust observations
 - Outbreak records
@@ -74,7 +73,7 @@ Provides:
 
 ## Open-Meteo Climate Archive
 
-Monthly climate variables including:
+Provides monthly climate summaries including:
 
 - Temperature
 - Relative humidity
@@ -87,7 +86,7 @@ Monthly climate variables including:
 
 ## Google Earth Engine
 
-Satellite-derived environmental products:
+Satellite-derived environmental products including:
 
 - Normalized Difference Vegetation Index (NDVI)
 - Land Surface Temperature (LST)
@@ -96,43 +95,40 @@ Satellite-derived environmental products:
 
 ## Wind Data
 
-Monthly averaged:
+Monthly averaged atmospheric measurements including:
 
 - Wind speed
 - Wind direction
 
-used to estimate potential locust movement between neighboring districts.
+These variables are used to estimate potential wind-assisted locust migration between districts.
 
 ---
 
-# Ecological Dataset
+# LEAF_XGBOOST_DATASET
 
 **File**
 
 ```text
-clean_data.csv
+LEAF_XGBOOST_DATASET.csv
 ```
 
-The ecological dataset represents each district independently for every month.
+This dataset represents each district independently for every month.
 
-Each row corresponds to:
+Each observation corresponds to:
 
 ```text
 District × Month
 ```
 
-The dataset was designed primarily for conventional machine learning algorithms such as XGBoost.
+The dataset was designed primarily for conventional machine learning algorithms, including:
 
-It includes:
+- XGBoost
+- Random Forest
+- LightGBM
+- CatBoost
+- Logistic Regression
 
-- Climate variables
-- Remote sensing features
-- Land cover variables
-- Temporal lag variables
-- Interaction features
-- Historical locust information
-
----
+It combines ecological, climatic, and remote sensing variables with engineered environmental indicators.
 
 ## Dataset Characteristics
 
@@ -145,49 +141,11 @@ It includes:
 
 ---
 
-# Network Dataset
-
-**File**
-
-```text
-final_lstm_ready_data.csv
-```
-
-The network dataset models locust migration as interactions between districts.
-
-Each observation represents:
-
-```text
-Source District
-        →
-Target District
-```
-
-during a particular month.
-
-The prediction target indicates whether the target district experiences a locust outbreak during the following month.
-
-Instead of modeling districts independently, the dataset explicitly captures spatial relationships between districts through geographic distance, wind flow, and learned outbreak probabilities.
-
----
-
-## Dataset Characteristics
-
-- **9,658 observations**
-- **20 columns**
-- **15 predictive features**
-- **31 source districts**
-- **31 target districts**
-- **Monthly temporal resolution**
-- **2012–2023**
-
----
-
 # Ecological Dataset Construction
 
 The ecological dataset is generated by integrating multiple environmental datasets into a unified district-level database.
 
-## Step 1 — Load District Labels
+## Step 1 — Load Historical Labels
 
 Historical locust labels covering **2000–2024** are loaded for all districts.
 
@@ -212,7 +170,7 @@ Additional derived variables such as temperature range and precipitation totals 
 
 Google Earth Engine products are aggregated into monthly statistics.
 
-For both **NDVI** and **Land Surface Temperature**, the following statistics are computed:
+For both NDVI and Land Surface Temperature, the following statistics are computed:
 
 - Mean
 - Median
@@ -224,13 +182,13 @@ For both **NDVI** and **Land Surface Temperature**, the following statistics are
 
 ## Step 4 — Merge Data Sources
 
-Climate, satellite, and locust records are merged using:
+Climate, satellite, and locust observations are merged using:
 
 - District
 - Year
 - Month
 
-Three merge strategies are implemented:
+Three merge strategies are implemented during preprocessing:
 
 - Strict
 - Flexible
@@ -240,9 +198,9 @@ The published dataset uses the **Balanced** strategy, retaining districts with a
 
 ---
 
-## Step 5 — Engineer Ecological Features
+## Step 5 — Feature Engineering
 
-Several biologically meaningful variables are created, including:
+Additional ecological indicators are created, including:
 
 - Moisture Stress Index
 - Vegetation Health Index
@@ -253,40 +211,21 @@ Several biologically meaningful variables are created, including:
 
 ---
 
-## Step 6 — Export Dataset
+## Step 6 — Feature Selection
 
-The processed ecological dataset is exported for downstream machine learning tasks.
+Although many environmental variables are generated, only the highest-impact predictors are retained through iterative feature importance analysis.
 
----
-
-# Feature Selection for XGBoost
-
-Although many environmental variables are generated during preprocessing, only the highest-impact variables are retained for model training.
-
-Feature selection was performed through iterative importance analysis.
-
-The final model uses **18 ecological predictors**, including:
-
-- Regional trend
-- NDVI lag variables
-- Pressure statistics
-- Land Surface Temperature
-- Relative humidity range
-- Temperature minimum
-- Dew point
-- Cloud cover variability
-- Land type interactions
-- Moisture–temperature interactions
+The final published dataset contains **18 predictive variables**.
 
 ---
 
 # XGBoost Training Pipeline
 
-The ecological dataset is used to train a recall-oriented XGBoost classifier.
+The ecological dataset was used to train a recall-oriented XGBoost classifier.
 
-The training pipeline consists of:
+The training procedure consists of:
 
-- Temporal filtering using data up to **2011**
+- Temporal filtering using data up to 2011
 - Stratified train-test split
 - SMOTE oversampling
 - Custom focal loss
@@ -297,19 +236,53 @@ Instead of maximizing overall accuracy, the model prioritizes outbreak detection
 
 ---
 
-# Network Dataset Construction
+# LEAF_LSTM_DATASET
 
-The network dataset is generated after training the ecological XGBoost model.
+**File**
 
-Rather than using raw ecological variables directly, each district first receives an outbreak probability estimated by the trained XGBoost classifier.
+```text
+LEAF_LSTM_DATASET.csv
+```
 
-These probabilities become node-level inputs for constructing district interaction networks.
+The network dataset models locust migration as interactions between districts.
+
+Each observation represents:
+
+```text
+Source District
+        →
+Target District
+```
+
+during a particular month.
+
+Rather than modeling districts independently, the dataset explicitly captures spatial relationships between districts through wind flow, geographic distance, and predicted outbreak probabilities.
+
+The prediction target indicates whether the destination district experiences an outbreak during the following month.
+
+## Dataset Characteristics
+
+- **9,658 observations**
+- **20 columns**
+- **15 predictive features**
+- **31 source districts**
+- **31 target districts**
+- **Monthly temporal resolution**
+- **2012–2023**
 
 ---
 
+# Network Dataset Construction
+
+The network dataset is generated after training the XGBoost ecological model.
+
+Instead of using raw ecological variables directly, each district first receives an outbreak probability estimated by the trained XGBoost classifier.
+
+These probabilities become node-level inputs for constructing district interaction networks.
+
 ## Step 1 — Aggregate FAO Records
 
-FAO observations are aggregated monthly, including:
+Monthly FAO observations are aggregated, including:
 
 - Outbreak presence
 - Treatment area
@@ -342,7 +315,7 @@ Monthly wind direction and speed are converted into vector components:
 
 ---
 
-## Step 4 — Construct District Network
+## Step 4 — Construct District Interaction Network
 
 Every district is paired with every other district for each month.
 
@@ -358,12 +331,12 @@ Source District → Target District
 
 ## Step 5 — Compute Spatial Relationships
 
-For every district pair, the pipeline computes:
+For every district pair, the preprocessing pipeline computes:
 
 - Great-circle distance using the Haversine formula
 - Wind Support Index based on projected wind vectors
 
-These variables describe the likelihood that prevailing winds facilitate locust migration.
+These variables quantify the potential influence of prevailing winds on locust migration.
 
 ---
 
@@ -371,21 +344,21 @@ These variables describe the likelihood that prevailing winds facilitate locust 
 
 The outbreak label is shifted forward by one month.
 
-The target variable:
+The prediction target:
 
 ```text
 Target_t_plus_1
 ```
 
-indicates whether the destination district experiences an outbreak during the following month.
+indicates whether the destination district experiences a locust outbreak during the following month.
 
 ---
 
 # Missing Data Handling
 
-The preprocessing pipeline intentionally avoids replacing meaningful zeros.
+The preprocessing pipeline avoids replacing meaningful zeros.
 
-Instead, missing numerical values are imputed hierarchically using:
+Missing numerical values are imputed hierarchically using:
 
 1. District–Month averages
 2. District averages
@@ -399,7 +372,7 @@ Sparse FAO event variables preserve genuine zeros while maintaining separate fea
 
 # Applications
 
-## Ecological Dataset
+## LEAF_XGBOOST_DATASET
 
 Suitable for:
 
@@ -409,15 +382,16 @@ Suitable for:
 - CatBoost
 - Logistic Regression
 - Explainable AI
-- Feature importance studies
+- Feature importance analysis
 
 ---
 
-## Network Dataset
+## LEAF_LSTM_DATASET
 
 Suitable for:
 
 - LSTM
+- GRU
 - Temporal Graph Networks
 - Graph Neural Networks
 - Sequence forecasting
@@ -433,7 +407,23 @@ Both datasets cover **31 districts** across Pakistan, spanning:
 - Sindh
 - Balochistan
 
-The selected districts correspond to historically significant desert locust activity regions.
+These districts correspond to historically significant desert locust activity regions.
+
+---
+
+# Data Dictionaries
+
+Detailed feature descriptions are provided in:
+
+- **XGBOOST_DATA_DICTIONARY.csv**
+- **LSTM_DATA_DICTIONARY.csv**
+
+These files include:
+
+- Variable names
+- Data types
+- Descriptions
+- Intended interpretation
 
 ---
 
@@ -452,3 +442,4 @@ Users should comply with the licenses and usage terms of the original data provi
 - FAO Desert Locust Information Service
 - Open-Meteo
 - Google Earth Engine
+```
