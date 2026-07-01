@@ -209,6 +209,8 @@ Additional ecological indicators are created, including:
 - Seasonal indicators
 - Monsoon indicator
 
+Additional temporal features are generated to capture delayed ecological effects on locust development. These include lagged environmental variables (e.g., NDVI and Land Surface Temperature) and a lagged outbreak label representing the previous month's locust status. These temporal features enable machine learning models to learn delayed relationships between environmental conditions and future outbreaks.
+
 ---
 
 ## Step 6 — Feature Selection
@@ -233,6 +235,7 @@ The training procedure consists of:
 - Precision–Recall threshold optimization
 
 Instead of maximizing overall accuracy, the model prioritizes outbreak detection while maintaining acceptable precision.
+To prevent temporal leakage, only observations up to **2011** are used for model training. The engineered lag features and previous outbreak labels are retained as predictors, allowing the model to learn temporal dependencies while ensuring predictions rely solely on information available prior to the forecasting period.
 
 ---
 
@@ -295,15 +298,7 @@ Monthly FAO observations are aggregated, including:
 
 ## Step 2 — Generate Local Outbreak Probabilities
 
-The trained XGBoost model predicts a monthly outbreak probability for every district.
-
-These probabilities become:
-
-- Source district probability
-- Target district probability
-
-within the network dataset.
-
+The trained XGBoost model predicts a monthly outbreak probability for every district. These probabilities are incorporated as node-level features for both source and target districts. Rather than using contemporaneous predictions, the network dataset incorporates lagged XGBoost outbreak probabilities together with lagged outbreak labels. This design ensures that all predictor variables correspond to information available before the prediction month, maintaining a realistic forecasting setting and preventing temporal leakage.
 ---
 
 ## Step 3 — Process Wind Data
@@ -342,15 +337,17 @@ These variables quantify the potential influence of prevailing winds on locust m
 
 ## Step 6 — Generate Future Targets
 
-The outbreak label is shifted forward by one month.
+To support one-step-ahead forecasting, the outbreak labels are shifted forward by one month.
 
-The prediction target:
+The target variable:
 
 ```text
 Target_t_plus_1
 ```
 
-indicates whether the destination district experiences a locust outbreak during the following month.
+indicates whether the destination district experiences an outbreak during the following month.
+
+To preserve temporal causality, both datasets also include lagged outbreak labels representing the previous month's locust status. Consequently, every prediction is based solely on historical observations, preventing information leakage from future time steps.
 
 ---
 
