@@ -292,6 +292,7 @@ Monthly FAO observations are aggregated, including:
 ## Step 2 — Generate Local Outbreak Probabilities
 
 The trained XGBoost model predicts a monthly outbreak probability for every district. These probabilities are incorporated as node-level features for both source and target districts. Rather than using contemporaneous predictions, the network dataset incorporates lagged XGBoost outbreak probabilities together with lagged outbreak labels. This design ensures that all predictor variables correspond to information available before the prediction month, maintaining a realistic forecasting setting and preventing temporal leakage.
+
 ---
 
 ## Step 3 — Process Wind Data
