@@ -1,0 +1,21 @@
+Column Name,Data Type,Role,Description
+Year,int64,Metadata / Key,Calendar year of the observation.
+Month,int64,Metadata / Key,Calendar month of the observation (1–12).
+Source_District,object,Metadata / Key,Administrative district identifier used for spatial aggregation and linkage.
+Target_District,object,Metadata / Key,Administrative district identifier used for spatial aggregation and linkage.
+Target_t_plus_1,float64,Target / Label,Destination district representing prediction/interaction target location.
+FAO_MEAN_Control_Mortality_Sum,float64,Feature,Mean aggregated value of the respective environmental or event feature.
+FAO_MEAN_Sum._Area_Treated_ha,int64,Feature,Mean aggregated value of the respective environmental or event feature.
+FAO_MEAN_Pesticide_Quantity_Sum,float64,Feature,Mean aggregated value of the respective environmental or event feature.
+FAO_MODE_Soil_Moisture,object,Feature,Soil moisture level indicating water availability in the soil profile.
+FAO_MEAN_Protected_Area_Sum,float64,Feature,Mean aggregated value of the respective environmental or event feature.
+FAO_MEAN_Avg._Soil_Moisture_Depth_Range_From_cm,float64,Feature,Soil moisture level indicating water availability in the soil profile.
+FAO_MEAN_Avg._Soil_Moisture_Depth_Range_To_cm,float64,Feature,Soil moisture level indicating water availability in the soil profile.
+FAO_MEAN_Minimum_Size_Sum,float64,Feature,Mean aggregated value of the respective environmental or event feature.
+FAO_MEAN_Maximum_Size_Sum,float64,Feature,Mean aggregated value of the respective environmental or event feature.
+RF_Prob_S,float64,Feature,Model-derived probability score representing predicted event likelihood.
+RF_Prob_T,float64,Feature,Model-derived probability score representing predicted event likelihood.
+S_Wind_U,float64,Feature,Zonal (east–west) wind component representing atmospheric flow direction.
+S_Wind_V,float64,Feature,Meridional (north–south) wind component representing atmospheric flow direction.
+Wind_Support_Index,float64,Feature,Derived wind-based feature capturing atmospheric movement patterns.
+Distance_km,float64,Feature,Geographical distance between source and target spatial units.

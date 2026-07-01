@@ -1,0 +1,23 @@
+Column Name,Data Type,Role,Description
+Year,int64,Metadata / Key,Calendar year of the observation.
+Month,int64,Metadata / Key,Calendar month of the observation (1–12).
+District,object,Metadata / Key,Administrative district identifier used for spatial aggregation and linkage.
+Lagged_Label,int64,Target / Label,Lagged binary/continuous target variable used for temporal prediction.
+Regional_Trend,float64,Feature,Vegetation or environmental trend indicator derived from temporal remote sensing.
+NDVI_Mean_Lag2,float64,Feature,Normalized Difference Vegetation Index capturing vegetation greenness and health.
+Pressure_Min,float64,Feature,Atmospheric pressure-based feature reflecting weather system dynamics.
+LST_Max,float64,Feature,Land Surface Temperature derived from satellite thermal observations.
+Pressure_Delta,float64,Feature,Atmospheric pressure-based feature reflecting weather system dynamics.
+LST_Max_Lag1,float64,Feature,Land Surface Temperature derived from satellite thermal observations.
+Heat_Moisture_Interaction,float64,Feature,Engineered interaction term capturing nonlinear environmental dependencies.
+Pressure_Mean,float64,Feature,Atmospheric pressure-based feature reflecting weather system dynamics.
+CloudCover_SD,float64,Feature,Cloud cover variability indicating atmospheric clarity conditions.
+Temp_Min,float64,Feature,Temperature-based climatic variable influencing environmental conditions.
+DewPoint_Mean,float64,Feature,Dew point temperature indicating atmospheric moisture content.
+Type_SandyDesert_x_NDVI,float64,Feature,Normalized Difference Vegetation Index capturing vegetation greenness and health.
+RH_Range,float64,Feature,Relative humidity metric representing atmospheric moisture saturation.
+Type_Riverine_x_NDVI,float64,Feature,Normalized Difference Vegetation Index capturing vegetation greenness and health.
+Type_Agricultural_x_NDVI,float64,Feature,Normalized Difference Vegetation Index capturing vegetation greenness and health.
+Type_SandyDesert,bool,Feature,Engineered feature used as an input variable for predictive modeling.
+Type_Agricultural_x_Precip,float64,Feature,Precipitation-related feature indicating rainfall intensity or occurrence.
+Type_SandyDesert_x_Precip,float64,Feature,Precipitation-related feature indicating rainfall intensity or occurrence.
